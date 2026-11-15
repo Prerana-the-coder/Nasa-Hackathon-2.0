@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NASA — Planetary Analog Intelligence</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='15' fill='%230a1428'/><text x='16' y='22' text-anchor='middle' fill='%2338d8ff' font-size='16' font-family='Arial'>☉</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=20261115-analog-cards-v1">
+<link rel="stylesheet" href="planets.css?v=20261115-solar-slim">
+</head>
+<body>
+
+<!-- ========== TOP NAVIGATION BAR ========== -->
+<nav id="topnav">
+  <div class="nav-left">
+    <div class="nasa-insignia" title="NASA — National Aeronautics and Space Administration">
+      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="31" viewBox="0 0 680 510">
+  <defs>
+    <path id="sp" d="M0,-10 Q1.5,-1.5 10,0 Q1.5,1.5 0,10 Q-1.5,1.5 -10,0 Q-1.5,-1.5 0,-10Z" fill="#fff"/>
+  </defs>
+  <g transform="translate(50 20)">
+    <!-- blue sphere -->
+    <circle cx="268" cy="240" r="227" fill="#0b3d91"/>
+
+    <!-- stars -->
+    <g fill="#fff">
+      <circle cx="267" cy="30" r="2"/><circle cx="225" cy="75" r="2.5"/>
+      <circle cx="233" cy="79" r="2"/><circle cx="222" cy="84" r="2"/>
+      <circle cx="262" cy="75" r="2"/><circle cx="276" cy="68" r="2"/>
+      <circle cx="314" cy="105" r="2.5"/><circle cx="183" cy="120" r="2"/>
+      <circle cx="191" cy="129" r="2"/><circle cx="415" cy="300" r="2"/>
+      <circle cx="385" cy="320" r="2"/><circle cx="440" cy="328" r="2.5"/>
+      <circle cx="378" cy="332" r="2"/><circle cx="125" cy="345" r="2"/>
+      <circle cx="100" cy="347" r="2"/><circle cx="120" cy="360" r="2"/>
+      <circle cx="162" cy="355" r="2"/><circle cx="185" cy="335" r="2"/>
+      <circle cx="205" cy="375" r="2"/><circle cx="252" cy="380" r="2"/>
+      <circle cx="375" cy="403" r="2"/>
+    </g>
+    <use href="#sp" transform="translate(313 52)"/>
+    <use href="#sp" transform="translate(205 125) scale(0.9)"/>
+    <use href="#sp" transform="translate(443 312) scale(0.9)"/>
+    <use href="#sp" transform="translate(421 360)"/>
+    <use href="#sp" transform="translate(183 408) scale(0.9)"/>
+
+    <!-- red vector (two swooshes) -->
+    <path d="M8 312 C150 255 300 220 400 160 C470 118 530 75 562 33
+             C520 100 450 150 370 190 C260 245 130 285 8 312 Z" fill="#fc3d21"/>
+    <path d="M75 442 C150 385 250 320 335 255 C410 195 490 120 560 38
+             C490 120 430 185 365 238 C290 312 190 390 75 442 Z" fill="#fc3d21"/>
+
+    <!-- white orbit -->
+    <ellipse cx="275" cy="232" rx="178" ry="82" transform="rotate(52 275 232)"
+             fill="none" stroke="#fff" stroke-width="3"/>
+
+    <!-- lettering -->
+    <text x="75" y="280" textLength="395" lengthAdjust="spacingAndGlyphs"
+          font-family="'Arial Black','Helvetica Neue',Arial,sans-serif"
+          font-weight="900" font-size="121" fill="#fff">NASA</text>
+  </g>
+</svg>
+    <div class="brand">
+      <span class="brand-title">NASA</span>
+      <span class="brand-subtitle">Planetary Analog Intelligence</span>
+    </div>
+  </div>
+
+  <div class="nav-tabs">
+    <a class="nav-tab active" href="#tab-home" data-tab="home" aria-controls="tab-home" aria-current="page" title="Home — main opening interface"><span class="tab-icon">🏠</span> Home</a>
+    <a class="nav-tab" href="#compareModal" data-tab="compare" aria-controls="compareModal"><span class="tab-icon">⚖️</span> Analog Comparison</a>
+    <a class="nav-tab" href="#graphModal" data-tab="knowledge" aria-controls="graphModal"><span class="tab-icon">🌐</span> Knowledge Networks</a>
+    <a class="nav-tab" href="#tab-datasources" data-tab="datasources" aria-controls="tab-datasources" title="Open Space Agency Datasets"><span class="tab-icon">📊</span> Data Sources</a>
+    <a class="nav-tab" href="#tab-research" data-tab="research" aria-controls="tab-research" title="Planetary Science Literature &amp; Evidence"><span class="tab-icon">🔬</span> Research</a>
+  </div>
+
+  <div class="nav-right">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="globalSearch" placeholder="Search locations, regions..." autocomplete="off">
+      <div id="searchResults" class="search-dropdown"></div>
+    </div>
+  </div>
+</nav>
+
+<!-- ========== MAIN DASHBOARD ========== -->
+<main id="app">
+
+  <!-- ===== HOME TAB ===== -->
+  <section id="tab-home" class="tab-content active">
+    <div class="home-grid" id="homeGrid">
+
+      <!-- LEFT SIDEBAR -->
+      <aside class="sidebar-left">
+        <!-- Explore Planets Card -->
+        <div class="glass-card card-planets">
+          <div class="card-title-row">
+            <span class="card-icon">🧭</span>
+            <h3 class="card-title">Explore Planets</h3>
+          </div>
+          <div class="planet-list">
+            <button class="planet-btn active" data-body="earth">
+              <div class="planet-thumb earth-thumb"></div>
+              <div class="planet-btn-info">
+                <span class="planet-name">Earth</span>
+                <span class="planet-role">14 Terrestrial Analogs</span>
+              </div>
+            </button>
+            <button class="planet-btn" data-body="moon">
+              <div class="planet-thumb moon-thumb"></div>
+              <div class="planet-btn-info">
+                <span class="planet-name">Moon</span>
+                <span class="planet-role">Artemis South Pole Targets</span>
+              </div>
+            </button>
+            <button class="planet-btn" data-body="mars">
+              <div class="planet-thumb mars-thumb"></div>
+              <div class="planet-btn-info">
+                <span class="planet-name">Mars</span>
+                <span class="planet-role">Curiosity & Perseverance Sites</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Planet Overview Widget (Floating Glass) -->
+        <div class="glass-card card-overview" id="planetOverviewCard">
+          <div class="overview-header">
+            <div>
+              <h4 id="overviewTitle">Earth Overview</h4>
+              <span class="overview-sub" id="overviewSub">Base Reference Planet</span>
+            </div>
+            <div class="mini-orb" id="miniOrb"></div>
+          </div>
+          <div class="stat-grid">
+            <div class="stat-pill">
+              <span class="stat-label">Avg Temp</span>
+              <span class="stat-value" id="statTemp">15°C</span>
+            </div>
+            <div class="stat-pill">
+              <span class="stat-label" id="statLbl2">Land Coverage</span>
+              <span class="stat-value" id="statVal2">29.2%</span>
+            </div>
+            <div class="stat-pill">
+              <span class="stat-label" id="statLbl3">Water Coverage</span>
+              <span class="stat-value" id="statVal3">70.8%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Coordinates Widget -->
+        <div class="glass-card card-coords">
+          <div class="coords-inner">
+            <span class="reticle-icon">⌖</span>
+            <div class="coords-labels">
+              <span class="coords-label">Surface Coordinates</span>
+              <span class="coords-val" id="coordText">24.1000° S &nbsp; 70.0000° W</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Research Tools -->
+        <div class="glass-card card-tools">
+          <h3 class="card-title">Research Tools</h3>
+          <div class="tools-list">
+            <button class="tool-btn" id="toolAnalogFinder">
+              <span class="tool-icon">🔍</span>
+              <span class="tool-name">Analog Finder</span>
+              <span class="tool-tag">Multi-site</span>
+            </button>
+            <button class="tool-btn" id="toolKnowledge">
+              <span class="tool-icon">🌐</span>
+              <span class="tool-name">Knowledge Network</span>
+              <span class="tool-tag">Graph</span>
+            </button>
+            <button class="tool-btn" id="toolMissionPlanner">
+              <span class="tool-icon">📋</span>
+              <span class="tool-name">Mission Test Planner</span>
+              <span class="tool-tag">Hardware</span>
+            </button>
+            <button class="tool-btn" id="toolCompare">
+              <span class="tool-icon">⚖️</span>
+              <span class="tool-name">Comparative Analysis</span>
+              <span class="tool-tag">Gaussian</span>
+            </button>
+            <button class="tool-btn" id="toolSensitivity">
+              <span class="tool-icon">🌪️</span>
+              <span class="tool-name">Sensitivity / Tornado</span>
+              <span class="tool-tag">Tuning</span>
+            </button>
+            <button class="tool-btn" id="toolExportDossier">
+              <span class="tool-icon">📑</span>
+              <span class="tool-name">Export Field Dossier</span>
+              <span class="tool-tag">Print/PDF</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Discovery Mode -->
+        <div class="glass-card card-discovery">
+          <div class="discovery-header">
+            <div class="pulse-indicator">
+              <span class="pulse-core"></span>
+              <span class="pulse-ring"></span>
+            </div>
+            <span class="discovery-title">Discovery Mode</span>
+          </div>
+          <p class="discovery-sub">Autonomously scout the globe for high-fidelity planetary analogs...</p>
+          <button class="btn-primary btn-sm btn-glow" id="startDiscovery">
+            <span>Scan Earth Analogs</span> <span class="arrow-right">→</span>
+          </button>
+        </div>
+      </aside>
+
+      <!-- CENTER SOLAR SYSTEM HERO (planets.html / planets.css / planets.js) -->
+      <div class="center-area">
+        <div id="solarHero" class="solar-hero" tabindex="0" role="application" aria-label="Interactive Sun, Earth, Moon and Mars scope">
+          <canvas id="ssGl" class="ss-gl"></canvas>
+          <div id="ssLabels" class="ss-labels"></div>
+
+          <!-- Best analog pair, fed by the similarity engine -->
+          <div class="ss-target" id="targetSitePill">
+            <span class="ss-tdot"></span>
+            <span class="ss-tlabel">TARGET PAIR:</span>
+            <span class="ss-tval" id="targetSiteVal">Gale Crater (Mars)</span>
+          </div>
+
+          <aside id="ssInfo" class="ss-hud ss-hidden"><div class="ss-frame ss-pane"></div></aside>
+        </div>
+      </div>
+
+      <!-- CENTERED LANDSCAPE REGION PROFILE -->
+      <aside class="sidebar-right" id="regionProfileOverlay" role="dialog" aria-modal="true" aria-labelledby="regionTitle" aria-hidden="true">
+        <div class="glass-card card-region" id="regionCard">
+          <button type="button" class="modal-close region-profile-close" id="regionProfileClose" aria-label="Close location details">✕</button>
+
+          <!-- Card Header & Match Score Ring Badge -->
+          <div class="region-top-bar">
+            <div class="region-badge-group">
+              <span class="location-pin">📍</span>
+              <div class="region-title-wrap">
+                <span class="region-pretitle">Selected Region:</span>
+                <h3 class="region-title" id="regionTitle">Atacama Desert</h3>
+              </div>
+            </div>
+
+            <!-- Radial Progress Match Ring -->
+            <div class="match-ring-box" title="Confidence-Adjusted Multi-Parameter Match">
+              <svg class="ring-svg" viewBox="0 0 44 44">
+                <circle class="ring-bg" cx="22" cy="22" r="18"/>
+                <circle class="ring-fg" id="matchRingCircle" cx="22" cy="22" r="18" stroke-dasharray="113.1" stroke-dashoffset="9.0"/>
+              </svg>
+              <div class="ring-text">
+                <span class="ring-num" id="matchPct">92%</span>
+                <span class="ring-sub">Match</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Region Photo Banner -->
+          <div class="region-banner-wrap">
+            <img id="regionBannerImg" class="region-banner-img" src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=600&q=80" alt="Region landscape">
+            <div class="banner-gradient"></div>
+            <div class="region-geo-tag" id="regionMeta">
+              <span>📍 <span id="regionCoords">23.5° S, 67.5° W</span></span>
+              <span>&bull;</span>
+              <span id="regionElev">Elevation: 2,400 m</span>
+            </div>
+          </div>
+
+          <!-- Category Navigation Tabs -->
+          <div class="fp-tabs">
+            <button class="fp-tab active" data-fp="fingerprint">Fingerprint</button>
+            <button class="fp-tab" data-fp="terrain">Terrain</button>
+            <button class="fp-tab" data-fp="geology">Geology</button>
+            <button class="fp-tab" data-fp="environment">Environment</button>
+          </div>
+
+          <!-- Selected Location Fingerprint Metrics -->
+          <div class="fp-content" id="fpContent">
+            <!-- Populated with location values, normalized range bars, and evidence grades -->
+          </div>
+
+          <section class="site-context" id="siteContext" aria-live="polite"></section>
+
+          <!-- Informational Synthesis Footnote -->
+          <div class="region-info-note" id="regionNote">
+            <span class="info-icon">ℹ</span>
+            <span class="info-text" id="regionNoteText">High similarity due to extreme aridity, hypobaric pressure, and volcanic basalt terrain.</span>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="region-actions">
+            <button class="btn-outline btn-full" id="viewDetailsBtn">
+              <span>Scientific Profile & Dossier</span> <span class="arrow-right">→</span>
+            </button>
+            <button class="btn-primary btn-full" id="planTestMissionBtn">
+              <span>Plan Field Mission Here</span> <span class="arrow-right">→</span>
+            </button>
+          </div>
+
+        </div>
+      </aside>
+
+    </div><!-- .home-grid -->
+
+    <!-- ========== BOTTOM CARDS ROW (MATCHING REFERENCE UI) ========== -->
+    <div class="bottom-row">
+
+      <!-- Card 1: Analog Comparison (Radar Pentagram) -->
+      <div class="glass-card card-comparison">
+        <div class="card-header-row">
+          <div class="header-left">
+            <span class="card-icon">📊</span>
+            <h3 class="card-title">Analog Comparison</h3>
+          </div>
+          <button class="btn-text-link" id="viewCompDetails">View Details →</button>
+        </div>
+
+        <div class="comparison-content">
+          <div class="radar-wrap">
+            <canvas id="radarChart" width="260" height="230"></canvas>
+          </div>
+          <div class="comparison-legend" id="compLegend">
+            <!-- Dynamic comparison legend -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Knowledge Network (Interactive Constellation Graph) -->
+      <div class="glass-card card-knowledge">
+        <div class="card-header-row">
+          <div class="header-left">
+            <span class="card-icon">🌐</span>
+            <h3 class="card-title">Knowledge Network</h3>
+          </div>
+          <button class="btn-text-link" id="exploreNetworkBtn">Explore Network →</button>
+        </div>
+
+        <div class="knowledge-content">
+          <svg id="knowledgeSVG" viewBox="0 0 460 210" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Interactive preview of the inter-planetary knowledge network"></svg>
+          <div class="graph-legend" id="graphLegend"></div>
+          <p class="mini-graph-info" id="miniGraphInfo" aria-live="polite">Select a node to explore its connections.</p>
+        </div>
+      </div>
+
+      <!-- Card 3: Upcoming Missions & AI Research Assistant -->
+      <div class="glass-card card-missions">
+        <div class="card-header-row">
+          <div class="header-left">
+            <span class="card-icon">🚀</span>
+            <h3 class="card-title">Upcoming Missions</h3>
+          </div>
+        </div>
+
+        <div class="missions-list" id="missionsList">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Integrated AI Research Assistant Pill -->
+        <div class="ai-assistant-pill" id="aiPill">
+          <div class="ai-sparkle">✦</div>
+          <div class="ai-pill-content">
+            <span class="ai-pill-title">AI Research Assistant</span>
+            <span class="ai-pill-query" id="aiQuestion">Why is Atacama a good analog for Mars?</span>
+          </div>
+          <button class="ai-pill-btn" id="aiSendBtn" title="Ask AI Assistant">→</button>
+        </div>
+      </div>
+
+    </div><!-- .bottom-row -->
+  </section>
+
+  <!-- ===== EXPLORE TAB ===== -->
+  <section id="tab-explore" class="tab-content">
+    <div class="analogs-page">
+      <div class="page-header-row">
+        <div>
+          <h2>Planetary Scout & Twin Finder</h2>
+          <p class="page-sub">Interactive exploratory interface for testing global coordinates against lunar base and Martian landing sites.</p>
+        </div>
+        <div class="filter-pills" id="exploreBodyFilter">
+          <button class="filter-pill active" data-filter="all">All Planetary Targets</button>
+          <button class="filter-pill" data-filter="moon">Moon South Pole</button>
+          <button class="filter-pill" data-filter="mars">Mars Exploration Sites</button>
+        </div>
+      </div>
+
+      <div class="explore-hero-card glass-card">
+        <div class="explore-search-grid">
+          <div>
+            <label class="input-label">Select Planetary Target Base:</label>
+            <select id="scoutTargetSelect" class="styled-select"></select>
+          </div>
+          <div>
+            <label class="input-label">Custom Earth Latitude (°):</label>
+            <input type="number" id="scoutLat" class="styled-input" value="19.975" step="0.001">
+          </div>
+          <div>
+            <label class="input-label">Custom Earth Longitude (°):</label>
+            <input type="number" id="scoutLon" class="styled-input" value="76.513" step="0.001">
+          </div>
+          <div>
+            <label class="input-label">&nbsp;</label>
+            <button class="btn-primary btn-full" id="btnRunScout">Compute Twin Similarity</button>
+          </div>
+        </div>
+        <div class="quick-coord-presets" id="quickCoordPresets" style="margin-top:12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:0.72rem">
+          <span style="color:var(--text-dark);text-transform:uppercase;font-weight:600">Quick Test Candidates:</span>
+          <button class="preset-btn coord-chip" data-lat="19.975" data-lon="76.513" data-name="Lonar Crater">Lonar Crater (India)</button>
+          <button class="preset-btn coord-chip" data-lat="33.310" data-lon="78.300" data-name="Ladakh Tso Kar">Ladakh Tso Kar (India)</button>
+          <button class="preset-btn coord-chip" data-lat="23.540" data-lon="68.960" data-name="Kutch Mata no Madh">Kutch Jarosite (India)</button>
+          <button class="preset-btn coord-chip" data-lat="26.900" data-lon="71.900" data-name="Thar Desert">Thar Desert (India)</button>
+          <button class="preset-btn coord-chip" data-lat="-24.500" data-lon="-69.250" data-name="Atacama Yungay">Atacama (Chile)</button>
+          <button class="preset-btn coord-chip" data-lat="75.380" data-lon="-89.870" data-name="Devon Island">Devon Island (Canada)</button>
+        </div>
+        <div id="scoutResultsArea" class="scout-results-area"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EARTH ANALOGS TAB ===== -->
+  <section id="tab-analogs" class="tab-content">
+    <div class="analogs-page">
+      <div class="page-header-row">
+        <div>
+          <h2>Earth Analog Sites Catalogue</h2>
+          <p class="page-sub">Comprehensive multi-agency database of candidate testing environments with quantified similarity metrics.</p>
+        </div>
+        <div class="filter-pills" id="analogFilterPills">
+          <button class="filter-pill active" data-filter="all">All Sites (14)</button>
+          <button class="filter-pill" data-filter="india">Indian Analogs (5)</button>
+          <button class="filter-pill" data-filter="polar">Polar & Permafrost</button>
+          <button class="filter-pill" data-filter="volcanic">Volcanic & Basalt</button>
+          <button class="filter-pill" data-filter="crater">Impact Craters</button>
+          <button class="filter-pill" data-filter="hyperarid">Hyperarid & Evaporite</button>
+        </div>
+      </div>
+      <div class="analog-grid" id="analogGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===== DATA SOURCES TAB ===== -->
+  <section id="tab-datasources" class="tab-content">
+    <div class="datasources-page">
+      <div class="ds-header-row">
+        <div>
+          <h2>Open Space Agency Datasets</h2>
+          <p class="page-sub">Grounded scientific data archives from NASA Planetary Data System (PDS), ISRO, ESA, and Earth observation satellites.</p>
+        </div>
+        <div class="export-actions-row">
+          <button class="btn-secondary" id="btnExportGeoJSON" title="Export GeoJSON FeatureCollection for QGIS, NASA WorldWind, Google Earth">📥 GeoJSON (GIS)</button>
+          <button class="btn-secondary" id="btnExportCSV" title="Export CSV catalog of all 26 planetary analog candidates and 15 parameters">📊 CSV Catalog</button>
+          <button class="btn-secondary" id="btnExportGraph" title="Export complete Planetary Knowledge Graph nodes and edges JSON">🌐 Graph JSON</button>
+          <button class="btn-secondary" id="btnExportBibtex" title="Export BibTeX citations of all peer-reviewed planetary literature">📚 BibTeX</button>
+        </div>
+      </div>
+      <div class="ds-grid" id="dsGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===== RESEARCH TAB ===== -->
+  <section id="tab-research" class="tab-content">
+    <div class="research-page">
+      <h2>Planetary Science Literature & Evidence</h2>
+      <p class="page-sub">Peer-reviewed publications, ground-truth field expedition reports, and planetary mission overviews.</p>
+      <div class="papers-list" id="papersList"></div>
+    </div>
+  </section>
+
+  <!-- ===== DETAIL / SCIENTIFIC DOSSIER MODAL ===== -->
+  <div id="detailModal" class="modal-overlay" style="display:none">
+    <div class="modal-card modal-wide">
+      <button class="modal-close" id="modalClose">✕</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <!-- ===== MISSION TEST-SITE PLANNER MODAL ===== -->
+  <div id="plannerModal" class="modal-overlay" style="display:none">
+    <div class="modal-card modal-wide">
+      <button class="modal-close" id="plannerModalClose">✕</button>
+      <div class="modal-header-with-badge">
+        <span class="badge-tag">NASA FIELD OPERATIONS</span>
+        <h3>🛠️ Mission Hardware & Procedure Test Planner</h3>
+      </div>
+      <p class="modal-sub">Generate a catalog-backed site suitability assessment and protocols for your selected hardware objectives.</p>
+
+      <div class="planner-grid">
+        <div class="planner-column">
+          <label class="input-label">Select Analog Field Site:</label>
+          <select id="plannerSiteSelect" class="styled-select"></select>
+
+          <label class="input-label" style="margin-top:14px">Target Mission Objective:</label>
+          <div class="hardware-checklist" id="hardwareChecklist">
+            <label class="check-item"><input type="checkbox" value="rover" checked> Rover Mobility & Traction (Sand / Slope / Obstacles)</label>
+            <label class="check-item"><input type="checkbox" value="drill" checked> Cryogenic Regolith & Basalt Core Drilling</label>
+            <label class="check-item"><input type="checkbox" value="suit" checked> Pressurized Spacesuit Bio-mechanics & Ingress</label>
+            <label class="check-item"><input type="checkbox" value="isru" checked> In-Situ Resource Utilization (Water Ice / Oxygen Extraction)</label>
+            <label class="check-item"><input type="checkbox" value="isolation"> Crew Psychological Isolation & Latency Comms</label>
+            <label class="check-item"><input type="checkbox" value="bio"> Life-Detection & Clean-Sampling Biosignature Protocols</label>
+          </div>
+          <button class="btn-primary btn-full" id="btnGeneratePlan" style="margin-top:16px">Generate Field Assessment</button>
+        </div>
+
+        <div class="planner-column" id="plannerOutputArea" aria-live="polite">
+          <div class="empty-state">Choose a field site and objectives to generate an evidence-based assessment. Access, permits, and safety require local verification.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== AI CHAT MODAL ===== -->
+  <div id="aiModal" class="modal-overlay" style="display:none">
+    <div class="modal-card modal-ai">
+      <button class="modal-close" id="aiModalClose">✕</button>
+      <div class="ai-modal-header">
+        <div class="ai-sparkle-large">✦</div>
+        <div>
+          <h3>NASA Planetary AI Research Assistant</h3>
+          <span class="modal-sub-inline">Synthesizing NASA PDS, ISRO, and peer-reviewed analog research</span>
+        </div>
+      </div>
+      <div class="ai-quick-prompts">
+        <button class="quick-prompt-chip" data-q="Why is Lonar Crater in India a prime analog for the Moon and Mars?">Lonar Crater impact</button>
+        <button class="quick-prompt-chip" data-q="How does Ladakh compare to the Artemis Moon South Pole site?">Ladakh cold desert</button>
+        <button class="quick-prompt-chip" data-q="What makes Kutch salt flats similar to Meridiani Planum on Mars?">Kutch jarosite</button>
+        <button class="quick-prompt-chip" data-q="Where does the terrestrial analogy break down for Mars?">Analogy breakdown</button>
+      </div>
+      <div class="ai-chat" id="aiChat">
+        <div class="ai-msg ai-sys">
+          Welcome to the <strong>Planetary Analog Intelligence</strong> system. I am grounded in planetary mission datasets (MOLA, LOLA, Diviner, M³, Curiosity, Perseverance, Chandrayaan-3). Ask me to evaluate sites, explain similarity scores, or formulate field testing strategies.
+        </div>
+      </div>
+      <div class="ai-input-row">
+        <input type="text" id="aiInput" placeholder="Ask about analog sites, missions, mineralogy, or testing..." autocomplete="off">
+        <button class="btn-primary" id="aiSubmit">Ask</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== COMPARATIVE ANALYSIS MODAL ===== -->
+  <div id="compareModal" class="modal-overlay" style="display:none">
+    <div class="modal-card modal-wide">
+      <button class="modal-close" id="compareModalClose">✕</button>
+      <h3>⚖️ Planetary Comparative Analysis & Multi-Metric Breakdown</h3>
+      <div class="compare-controls">
+        <div class="compare-select-wrap">
+          <label class="input-label">Reference Target A:</label>
+          <select id="compareA" class="styled-select"></select>
+        </div>
+        <span class="vs-circle">VS</span>
+        <div class="compare-select-wrap">
+          <label class="input-label">Candidate Region B:</label>
+          <select id="compareB" class="styled-select"></select>
+        </div>
+        <button class="btn-primary" id="runCompare">Execute Comparison</button>
+      </div>
+      <div id="compareResult"></div>
+    </div>
+  </div>
+
+  <!-- ===== SENSITIVITY & TORNADO TUNING MODAL ===== -->
+  <div id="sensitivityModal" class="modal-overlay" style="display:none">
+    <div class="modal-card modal-wide modal-tornado">
+      <button class="modal-close" id="sensitivityModalClose">✕</button>
+      <div class="modal-header-with-badge">
+        <span class="badge-tag">ALGORITHMIC AUDIT</span>
+        <h3>🌪️ Parameter Sensitivity & Tornado Analysis</h3>
+      </div>
+      <p class="modal-sub">Evaluate how shifting mission priorities (e.g., geology vs. temperature vs. slope) alters analog suitability rankings and drives score sensitivity.</p>
+
+      <div class="tornado-controls-bar">
+        <div class="tornado-pair-selects">
+          <div class="form-group-inline">
+            <label>Target Site:</label>
+            <select id="sensTargetSelect" class="styled-select"></select>
+          </div>
+          <div class="form-group-inline">
+            <label>Analog Candidate:</label>
+            <select id="sensCandidateSelect" class="styled-select"></select>
+          </div>
+        </div>
+        <div class="tornado-presets">
+          <span class="preset-label">Presets:</span>
+          <button class="preset-btn active" data-preset="balanced">Balanced Standard</button>
+          <button class="preset-btn" data-preset="geology">Geology & Mineralogy</button>
+          <button class="preset-btn" data-preset="thermal">Thermal Extremes</button>
+          <button class="preset-btn" data-preset="mobility">Terrain & Mobility</button>
+          <button class="preset-btn-reset" id="resetWeightsBtn">↺ Reset</button>
+        </div>
+      </div>
+
+      <div class="tornado-viz-card">
+        <div class="tornado-chart-head">
+          <div class="tornado-legend">
+            <span class="leg-item"><span class="leg-color leg-dbl"></span> 2x Weight Impact (+Double)</span>
+            <span class="leg-item"><span class="leg-color leg-drop"></span> 0x Weight Impact (-Drop Parameter)</span>
+          </div>
+          <div class="tornado-current-score" id="tornadoScoreBadge">Base Similarity: <strong>--%</strong></div>
+        </div>
+        <div class="tornado-svg-container">
+          <svg id="tornadoSVG" viewBox="0 0 660 300" preserveAspectRatio="xMidYMid meet"></svg>
+        </div>
+      </div>
+
+      <h4 class="section-label-sm" style="margin-top:16px;">Fine-Tune Individual Parameter Weights (0.1x – 2.5x)</h4>
+      <div class="sensitivity-grid" id="sensitivityGrid"></div>
+    </div>
+  </div>
+
+  <!-- ===== FULL KNOWLEDGE GRAPH MODAL ===== -->
+  <div id="graphModal" class="modal-overlay" style="display:none">
+    <div class="modal-card modal-wide modal-graph">
+      <button class="modal-close" id="graphModalClose">✕</button>
+      <div class="graph-modal-header">
+        <div>
+          <h3>🌐 Inter-Planetary Knowledge Network</h3>
+          <p class="modal-sub">Explore planetary bodies, their locations, and connected missions, instruments, datasets, and literature.</p>
+        </div>
+        <div class="graph-controls-row">
+          <input type="search" id="graphSearch" placeholder="Search nodes (e.g., Lonar, M³, Gale)..." class="styled-input" aria-label="Search network nodes">
+          <select id="graphFilter" class="styled-select" aria-label="Filter by node type">
+            <option value="">All Node Types</option>
+            <option value="planet">Planetary bodies</option>
+            <option value="region">Locations</option>
+            <option value="mission">Missions</option>
+            <option value="instrument">Instruments</option>
+            <option value="observation">Observations</option>
+            <option value="paper">Scientific Papers</option>
+            <option value="formation">Geological Features</option>
+            <option value="dataset">Datasets</option>
+          </select>
+          <select id="graphRelationFilter" class="styled-select" aria-label="Filter by relationship">
+            <option value="">All Relationships</option>
+            <option value="has location">Planetary body → location</option>
+            <option value="proposed analog">Proposed analogs</option>
+            <option value="computed analog">Computed analogs</option>
+            <option value="explored by">Explored by</option>
+            <option value="carries">Mission instruments</option>
+            <option value="produced">Instrument output</option>
+            <option value="covers">Dataset coverage</option>
+          </select>
+          <button type="button" class="btn-outline graph-reset-btn" id="graphResetBtn" title="Clear the current focus and show the full network">Show All</button>
+        </div>
+      </div>
+      <div class="graph-summary-row">
+        <span id="graphSummary" aria-live="polite">Preparing network…</span>
+        <span class="graph-evidence-key"><i class="graph-key-dot key-hierarchy"></i>Planetary hierarchy <i class="graph-key-dot key-curated"></i>Catalogued link <i class="graph-key-dot key-hypothesis"></i>Proposed analog <i class="graph-key-line"></i>Computed analog</span>
+      </div>
+      <div id="graphTypeLegend" class="graph-legend graph-type-legend" role="list" aria-label="Network node types"></div>
+      <div class="graph-canvas-scroll" tabindex="0" aria-label="Scrollable network graph">
+        <svg id="graphFullSVG" viewBox="0 0 920 760" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Interactive inter-planetary knowledge network"></svg>
+      </div>
+      <div id="graphInfo" class="graph-info-panel" aria-live="polite">Select a node or relationship to inspect its scientific context.</div>
+    </div>
+  </div>
+
+</main>
+
+<!-- Three.js + OrbitControls (same r128 build) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+<!-- Engine & Platform Core -->
+<script src="data.js?v=20261115"></script>
+<script src="engine.js?v=20261114"></script>
+<script src="graph.js?v=20261115-network-v8"></script>
+<script src="planets.js?v=20261115-solar-slim"></script>
+<script src="app.js?v=20261115-analog-cards-v1"></script>
+</body>
+</html>
