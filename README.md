@@ -6,6 +6,7 @@
 
 An interactive, browser-based explorer that ranks Earth analog sites against lunar and Martian targets using a transparent, explainable similarity model.
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-000000?style=for-the-badge&logo=vercel)](https://nasa-hackathon-20.vercel.app/)
 ![NASA Space Apps 2026](https://img.shields.io/badge/NASA%20Space%20Apps-2026-0B3D91?style=for-the-badge)
 ![Haldwani](https://img.shields.io/badge/Local%20Event-Haldwani%2C%20India-FF9933?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Hackathon%20Prototype-orange?style=for-the-badge)
@@ -18,11 +19,11 @@ An interactive, browser-based explorer that ranks Earth analog sites against lun
 
 **26 sites · 15 parameters · 94-node knowledge graph · 4 export formats**
 
-[Quick start](#-quick-start) · [How it works](#-how-it-works) · [Example results](#-example-results) · [Limitations](#-be-honest-what-this-is-not)
+[🚀 Live demo](https://nasa-hackathon-20.vercel.app/) · [Quick start](#-quick-start) · [How it works](#-how-it-works) · [Example results](#-example-results) · [Limitations](#-be-honest-what-this-is-not) · [Team](#-team)
 
 </div>
 
-> *Independent project. Not affiliated with, endorsed by, or certified by NASA, ESA, ISRO or any space agency.*
+> *Independent hackathon project. Not affiliated with, endorsed by, or certified by NASA, ESA, ISRO or any space agency.*
 
 ---
 
@@ -39,15 +40,20 @@ But "similar" is slippery. A site can match Mars in temperature and fail in rock
 | 🎯 | **Analog ranking** | Pick a lunar or Martian site and get Earth sites ranked by confidence-adjusted similarity |
 | 🔍 | **Explainable scores** | See per-parameter contributions, evidence grades and missing data for any pair |
 | 🎚️ | **Adjustable weights** | Decide what matters and watch rankings change |
-| 📊 | **Sensitivity analysis** | Check how stable the top result is when each weight is scaled ×0.5 and ×1.5 |
+| 📊 | **Sensitivity analysis** | Check how stable the top result is when each weight is scaled ×0.5 and ×1.5, plus a per-pair "tornado" view |
+| 📍 | **Twin Finder** | Enter custom Earth coordinates and compute similarity against a chosen Moon or Mars target |
 | 🕸️ | **Knowledge graph** | Explore 94 linked nodes: sites, missions, instruments, observations, papers, datasets |
 | 🌌 | **3D solar-system view** | Sun, Earth, Moon and Mars in WebGL with site markers |
 | 🧭 | **Exploration score** | A heuristic 8-criterion "opportunity" score (access, hazard, radiation, data availability and more) |
+| 🛠️ | **Mission Test Planner** | Generates a catalog-based site suitability assessment for objectives such as rover mobility or drilling. Advisory only; access, permits and safety need local verification |
+| 🖨️ | **Field dossier** | Print/PDF-ready dossier for a selected site |
 | 📦 | **Exports** | Catalog as CSV and GeoJSON, graph as JSON, references as BibTeX |
 
 ## 🚀 Quick start
 
-No install, no build, no accounts.
+**Try it online:** <https://nasa-hackathon-20.vercel.app/>
+
+**Or run locally.** No install, no build, no accounts:
 
 ```bash
 git clone https://github.com/Prerana-the-coder/Nasa-Hackathon-2.0.git
@@ -137,14 +143,16 @@ flowchart TB
 ├── engine.js    similarity, ranking, sensitivity, exploration scoring
 ├── graph.js     knowledge-graph construction, layouts, SVG rendering
 ├── planets.js   Three.js solar-system view (procedural textures)
-├── app.js       UI logic, assistant panel, exports
+├── app.js       UI logic, assistant panel, planner, exports
 ├── style.css    main styles
 └── planets.css  3D view styles
 ```
 
+Deployed as a static site on Vercel. There is no backend or database.
+
 ## 🛠️ Built with
 
-**JavaScript · HTML · CSS · Three.js (WebGL) · custom SVG graph rendering.** No framework, no bundler, no backend, zero npm dependencies.
+**JavaScript · HTML · CSS · Three.js (WebGL) · custom SVG graph rendering · Vercel (hosting).** No framework, no bundler, no backend, zero npm dependencies.
 
 ## ⚠️ Be honest: what this is NOT
 
@@ -156,7 +164,8 @@ flowchart TB
 - **High similarity does not mean equivalence.** Earth cannot copy lunar or Martian gravity, vacuum or radiation.
 - **The "AI assistant" is a demo.** It matches keywords and returns prepared text. It is not a language model.
 - **CSV and GeoJSON exports are partly broken** (some blank or "undefined" columns). Known issue.
-- Some values are body-wide approximations, and mission statuses may be out of date.
+- **Some on-page labels are out of date:** parts of the interface say "14 Terrestrial Analogs", but the catalog contains 17 Earth sites.
+- Some values are body-wide approximations (for example one lunar radiation measurement reused for all lunar sites), and mission statuses may be out of date.
 - The 3D scene uses generated textures, not real planetary imagery.
 
 </td></tr>
@@ -168,13 +177,14 @@ Values were compiled by the team into `data.js` with reference to published lite
 
 ## 🔭 Roadmap
 
+- [x] Live deployment
 - [ ] Ingest verified NASA PDS and Earthdata products with per-value provenance
 - [ ] Uncertainty quantification
 - [ ] Validate scores against expert-identified analog pairs
-- [ ] Fix CSV and GeoJSON export fields
+- [ ] Fix CSV and GeoJSON export fields and on-page site counts
 - [ ] GIS and remote-sensing processing
 - [ ] Real imagery and ephemerides in the 3D view
-- [ ] Automated tests and a live demo via GitHub Pages
+- [ ] Automated tests
 - [ ] Add an open-source license
 
 ## 👥 Team
@@ -182,6 +192,8 @@ Values were compiled by the team into `data.js` with reference to published lite
 | Name | GitHub |
 |---|---|
 | Prerana Sharma | [@Prerana-the-coder](https://github.com/Prerana-the-coder) |
+| greentigerbh | [@greentigerbh](https://github.com/greentigerbh) |
+| suhani25singh | [@suhani25singh](https://github.com/suhani25singh) |
 | Jashandeep Singh | [@JashanDX](https://github.com/JashanDX) |
 
 *Built for the [NASA Space Apps Challenge 2026, Haldwani](https://www.spaceappschallenge.org/2026/local-events/haldwani/). Participation does not imply NASA endorsement.*
